@@ -1,0 +1,376 @@
+/* ==========================================================================
+   Color palette (60-30-10 rule)
+   ========================================================================== */
+:root {
+  /* 60%: canvas and surfaces */
+  --color-bg: #f8fafc;            /* slate off-white page background */
+  --color-surface: #ffffff;       /* inputs and skill cards */
+
+  /* 30%: structure and typography */
+  --color-text: #0f172a;          /* deep slate: headings, body, nav, labels */
+  --color-border: #cbd5e1;        /* slate tint: dividers and input borders */
+
+  /* 10%: primary action, used ONLY on the submit button */
+  --color-action: #ea580c;        /* vivid orange */
+  --color-action-hover: #c2410c;  /* darker orange on hover */
+  --color-on-action: #ffffff;     /* text on the orange button */
+
+  /* Spacing scale: every margin, padding and gap uses one of these */
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+}
+
+/* ==========================================================================
+   Base and reset
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Keep the honeypot hidden even when other rules set display on its <p> */
+[hidden] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Page layout and typography
+   ========================================================================== */
+/* Mobile first: phones use the full screen width with slimmer padding */
+body {
+  max-width: none;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Fluid type: scales smoothly from phone to desktop, no breakpoints */
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.65;
+}
+
+h1,
+h2 {
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+h2 {
+  margin: 0 0 var(--space-md);
+  font-size: clamp(1.375rem, 1.2rem + 0.75vw, 1.75rem);
+}
+
+p {
+  margin: 0 0 var(--space-md);
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+header {
+  margin-bottom: var(--space-xl);
+}
+
+header h1 {
+  margin: 0 0 var(--space-xs);
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+}
+
+header p {
+  margin: 0;
+  font-size: clamp(1.0625rem, 1rem + 0.5vw, 1.3rem);
+}
+
+/* ==========================================================================
+   Navigation (flexbox)
+   ========================================================================== */
+nav {
+  margin-bottom: var(--space-2xl);
+  padding: var(--space-md) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* --- Burger menu (phones only) ---------------------------------------
+   A CSS-only toggle: the hidden checkbox remembers open/closed, and the
+   label is the visible burger button. No JavaScript needed. */
+.menu-toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+nav .menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: var(--space-xs) 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Keyboard users see a focus ring on the burger button */
+.menu-toggle:focus-visible + .menu-button {
+  outline: 2px solid var(--color-text);
+  outline-offset: 4px;
+}
+
+/* Three lines drawn with plain spans */
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 1.5rem;
+}
+
+.menu-icon span {
+  display: block;
+  height: 2px;
+  background-color: var(--color-text);
+  border-radius: 1px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Open state: the three lines turn into an X */
+.menu-toggle:checked + .menu-button .menu-icon span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle:checked + .menu-button .menu-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle:checked + .menu-button .menu-icon span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile first: links are collapsed until the burger is opened,
+   then stack vertically, one per line */
+nav ul {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: var(--space-md) 0 0;
+  list-style: none;
+}
+
+.menu-toggle:checked ~ ul {
+  display: flex;
+}
+
+nav a {
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav a:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 4px;
+}
+
+/* ==========================================================================
+   Main content sections
+   ========================================================================== */
+main section {
+  margin-bottom: var(--space-2xl);
+}
+
+/* ==========================================================================
+   Skills (grid)
+   ========================================================================== */
+#skills ul {
+  display: grid;
+  /* Mobile first: one column on phones */
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#skills li {
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-text);
+  border-radius: 0.375rem;
+  background-color: var(--color-surface);
+}
+
+/* ==========================================================================
+   Contact form
+   ========================================================================== */
+form p {
+  margin-bottom: var(--space-lg);
+}
+
+label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+}
+
+/* Text fields, dropdown and textarea: full width with comfortable padding */
+input:not([type="checkbox"]),
+select,
+textarea {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Clear focus state on every form control */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--color-text);
+  outline-offset: 2px;
+  border-color: var(--color-text);
+}
+
+/* Checkbox sits on the same line as its label */
+form input[type="checkbox"] {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0 var(--space-xs) 0 0;
+  vertical-align: middle;
+  accent-color: var(--color-text);
+}
+
+form input[type="checkbox"] + label {
+  display: inline;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+button {
+  margin-right: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border: 1px solid var(--color-text);
+  border-radius: 0.375rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Primary action: the only place orange appears on the page */
+button[type="submit"] {
+  border-color: var(--color-action);
+  background-color: var(--color-action);
+  color: var(--color-on-action);
+}
+
+button[type="submit"]:hover {
+  border-color: var(--color-action-hover);
+  background-color: var(--color-action-hover);
+}
+
+/* Secondary action: outlined in deep slate */
+button[type="reset"] {
+  background-color: transparent;
+  color: var(--color-text);
+}
+
+button[type="reset"]:hover {
+  background-color: var(--color-surface);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+footer {
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  font-size: clamp(0.875rem, 0.85rem + 0.15vw, 0.95rem);
+}
+
+footer p {
+  margin: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE: tablets and desktops (768px and wider)
+   Overrides the mobile-first defaults above.
+   ========================================================================== */
+@media (min-width: 768px) {
+  /* Re-center the page with a comfortable reading width */
+  body {
+    max-width: 65ch;
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  /* Burger is hidden; nav links are always visible, side by side */
+  nav .menu-button {
+    display: none;
+  }
+
+  nav ul {
+    display: flex;
+    padding: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-xl);
+  }
+
+  /* Skills in two columns */
+  #skills ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE: large tablets and desktops (1024px and wider)
+   Builds on the 768px block. Between 768px and 1023px (portrait tablets)
+   the 768px layout applies; from 1024px up, the page gets roomier.
+   ========================================================================== */
+@media (min-width: 1024px) {
+  /* More breathing room at the top and bottom of the page */
+  body {
+    padding-block: var(--space-3xl);
+  }
+
+  /* Wider gaps between nav links and between page sections */
+  nav ul {
+    gap: var(--space-2xl);
+  }
+
+  main section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  /* Wider gaps between skill cards */
+  #skills ul {
+    gap: var(--space-lg);
+  }
+}

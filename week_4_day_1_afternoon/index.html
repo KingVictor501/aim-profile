@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doc Carson, CDMP | Freelance AI Entrepreneur</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Doc Carson, CDMP</h1>
+    <p>Turning marketing data into AI-powered automation that actually drives growth.</p>
+  </header>
+
+  <nav>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-button">
+      <span class="menu-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      Menu
+    </label>
+    <ul>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Skills</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="about">
+      <h2>About</h2>
+      <p>An Air Force veteran with 12+ years' experience, including digital marketing leadership, I hold a Master of Science in Digital Audiences Strategy from Arizona State University's Walter Cronkite School of Journalism. I'm a Certified Digital Marketing Professional, Google Analytics and Meta certified, and former Big Tech Digital Marketing Manager and Webmaster. Now I freelance, building AI and automation for marketing.</p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>Technical &amp; On-Page SEO</li>
+        <li>Paid Search (Google &amp; Bing Ads)</li>
+        <li>Marketing Analytics &amp; Dashboards</li>
+        <li>CRM &amp; Marketing Automation</li>
+        <li>AI Entrepreneurship</li>
+        <li>Web Development</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <form action="#" method="post">
+        <p>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" autocomplete="name" pattern="[A-Za-z ]+" title="Letters and spaces only" required>
+        </p>
+        <p>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </p>
+        <p>
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+        </p>
+        <p>
+          <label for="subject">Subject</label>
+          <select id="subject" name="subject">
+            <option value="general">General</option>
+            <option value="project-inquiry">Project inquiry</option>
+            <option value="other">Other</option>
+          </select>
+        </p>
+        <p>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" placeholder="Tell me about your project, goals, or question..." required></textarea>
+        </p>
+        <p>
+          <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+          <label for="subscribe">Subscribe me to occasional updates.</label>
+        </p>
+        <p hidden>
+          <label for="website">Leave this field empty</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </p>
+        <p>
+          <button type="submit">Send message</button>
+          <button type="reset">Reset</button>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Doc Carson. All rights reserved.</p>
+  </footer>
+</body>
+</html>
