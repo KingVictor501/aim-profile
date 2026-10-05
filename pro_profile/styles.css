@@ -92,7 +92,8 @@ p {
   justify-content: flex-end;
   align-items: center;
   gap: var(--space-sm);
-  margin-bottom: var(--space-lg);
+  margin: 0 0 var(--space-lg);
+  font-size: inherit;             /* undo the larger "header p" size */
 }
 
 .theme-switch label {
@@ -101,17 +102,17 @@ p {
   cursor: pointer;
 }
 
-/* Only the current state is shown next to the label */
-.state-on {
-  display: none;
+/* The current state is written after the label by CSS. The "/ ''" part
+   hides it from screen readers, which already announce the switch's
+   on/off state. */
+.theme-switch label::after {
+  content: " Off";
+  content: " Off" / "";
 }
 
-:root:has(#theme-toggle:checked) .state-off {
-  display: none;
-}
-
-:root:has(#theme-toggle:checked) .state-on {
-  display: inline;
+:root:has(#theme-toggle:checked) .theme-switch label::after {
+  content: " On";
+  content: " On" / "";
 }
 
 /* The track */
@@ -205,32 +206,33 @@ nav .menu-button {
   outline-offset: 4px;
 }
 
-/* Three lines drawn with plain spans */
+/* Three lines drawn as an inline SVG */
 .menu-icon {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  display: block;
   width: 1.5rem;
+  height: 1rem;
+  overflow: visible;
 }
 
-.menu-icon span {
-  display: block;
-  height: 2px;
-  background-color: var(--color-text);
-  border-radius: 1px;
+.menu-icon line {
+  stroke: var(--color-text);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: center;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 /* Open state: the three lines turn into an X */
-.menu-toggle:checked + .menu-button .menu-icon span:nth-child(1) {
+.menu-toggle:checked + .menu-button .menu-icon line:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
 
-.menu-toggle:checked + .menu-button .menu-icon span:nth-child(2) {
+.menu-toggle:checked + .menu-button .menu-icon line:nth-child(2) {
   opacity: 0;
 }
 
-.menu-toggle:checked + .menu-button .menu-icon span:nth-child(3) {
+.menu-toggle:checked + .menu-button .menu-icon line:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
 
