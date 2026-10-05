@@ -16,7 +16,7 @@ A simple, responsive personal profile page built with plain HTML and CSS — no 
 
 ```
 .
-├── week_4_day_1_afternoon/
+├── pro_profile/
 │   ├── index.html   # Page markup
 │   └── styles.css   # Styles and responsive breakpoints
 ├── LICENSE
@@ -31,14 +31,14 @@ A simple, responsive personal profile page built with plain HTML and CSS — no 
    ```
    git clone https://github.com/KingVictor501/aim-profile.git
    ```
-2. Open `week_4_day_1_afternoon/index.html` in any web browser (double-click it, or drag it into a browser window).
+2. Open `pro_profile/index.html` in any web browser (double-click it, or drag it into a browser window).
 
 **Option 2: run a local server**
 
 From the project folder:
 
 ```
-cd week_4_day_1_afternoon
+cd pro_profile
 python3 -m http.server 8000
 ```
 
