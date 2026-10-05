@@ -8,6 +8,7 @@ A simple, responsive personal profile page built with plain HTML and CSS — no 
 - **Skills**: a list of core skills
 - **Contact**: a contact form with built-in HTML validation (name, email, phone, subject, message)
 - **Navigation**: a menu that collapses into a toggle button on small screens, using CSS only (no JavaScript)
+- **Dark mode**: a switch in the top right turns dark mode on and off, and remembers your choice after a refresh (`theme.js`)
 - **Responsive layout**: mobile-first styles that adapt at 768px (tablet) and 1024px (desktop)
 
 > Note: the contact form is front-end only. It isn't connected to a server, so submissions aren't sent anywhere.
@@ -18,7 +19,8 @@ A simple, responsive personal profile page built with plain HTML and CSS — no 
 .
 ├── pro_profile/
 │   ├── index.html   # Page markup
-│   └── styles.css   # Styles and responsive breakpoints
+│   ├── styles.css   # Styles and responsive breakpoints
+│   └── theme.js     # Remembers the dark mode setting
 ├── LICENSE
 └── README.md
 ```
