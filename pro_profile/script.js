@@ -12,8 +12,8 @@
   const CLOSE_DELAY = 200; // ms before a hover tooltip closes
   const EDGE = 16;         // px a tooltip must stay away from the screen edges
 
-  let openCard = null;
-  let closeTimer = null;
+  let openCard;   // the card whose tooltip is open (undefined when none)
+  let closeTimer; // pending hover-close timer (undefined when none)
   let lastPointerType = "mouse";
 
   function tooltipFor(card) {
@@ -26,7 +26,7 @@
 
   function cancelClose() {
     clearTimeout(closeTimer);
-    closeTimer = null;
+    closeTimer = undefined;
   }
 
   function scheduleClose() {
@@ -51,7 +51,7 @@
     if (!openCard) return;
 
     const card = openCard;
-    openCard = null;
+    openCard = undefined;
     card.setAttribute("aria-expanded", "false");
     if (returnFocus) card.focus();
     tooltipFor(card).hidden = true;
