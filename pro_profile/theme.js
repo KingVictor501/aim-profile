@@ -2,8 +2,8 @@
 // Loaded right after the switch in index.html, so the saved setting is
 // applied before the rest of the page shows (no flash of light mode).
 (function () {
-  var toggle = document.getElementById("theme-toggle");
-  var key = "theme";
+  const toggle = document.getElementById("theme-toggle");
+  const key = "theme";
 
   try {
     toggle.checked = localStorage.getItem(key) === "dark";
@@ -22,7 +22,7 @@
   // It needs a modifier key so it can't fire by accident while typing or
   // using voice control (WCAG 2.1.4). event.code is the physical T key,
   // because on a Mac Option+T types "†" rather than "t".
-  var isMac = /Mac|iPhone|iPad/.test(navigator.platform);
+  const isMac = /Mac|iPhone|iPad/.test(navigator.platform);
   if (isMac) document.querySelector("#theme-shortcut kbd").textContent = "Option";
 
   document.addEventListener("keydown", function (event) {

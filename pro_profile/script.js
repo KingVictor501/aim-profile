@@ -7,14 +7,14 @@
 // - Keyboard: Enter/Space toggles; Escape closes and returns focus to the card.
 // Only one tooltip is open at a time.
 (function () {
-  var cards = document.querySelectorAll(".skill-card");
-  var mouseQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-  var CLOSE_DELAY = 200; // ms before a hover tooltip closes
-  var EDGE = 16;         // px a tooltip must stay away from the screen edges
+  const cards = document.querySelectorAll(".skill-card");
+  const mouseQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const CLOSE_DELAY = 200; // ms before a hover tooltip closes
+  const EDGE = 16;         // px a tooltip must stay away from the screen edges
 
-  var openCard = null;
-  var closeTimer = null;
-  var lastPointerType = "mouse";
+  let openCard = null;
+  let closeTimer = null;
+  let lastPointerType = "mouse";
 
   function tooltipFor(card) {
     return document.getElementById(card.getAttribute("aria-controls"));
@@ -39,7 +39,7 @@
     if (openCard === card) return;
     if (openCard) close(false);
 
-    var tooltip = tooltipFor(card);
+    const tooltip = tooltipFor(card);
     tooltip.hidden = false;
     card.setAttribute("aria-expanded", "true");
     openCard = card;
@@ -50,7 +50,7 @@
     cancelClose();
     if (!openCard) return;
 
-    var card = openCard;
+    const card = openCard;
     openCard = null;
     card.setAttribute("aria-expanded", "false");
     if (returnFocus) card.focus();
@@ -63,9 +63,9 @@
     tooltip.style.setProperty("--shift", "0px");
     tooltip.classList.remove("is-below");
 
-    var rect = tooltip.getBoundingClientRect();
-    var maxRight = document.documentElement.clientWidth - EDGE;
-    var shift = 0;
+    const rect = tooltip.getBoundingClientRect();
+    const maxRight = document.documentElement.clientWidth - EDGE;
+    let shift = 0;
     if (rect.left < EDGE) {
       shift = EDGE - rect.left;
     } else if (rect.right > maxRight) {
@@ -77,13 +77,13 @@
   }
 
   cards.forEach(function (card) {
-    var item = card.parentElement; // the <li> holding the card and tooltip
-    var tooltip = tooltipFor(card);
+    const item = card.parentElement; // the <li> holding the card and tooltip
+    const tooltip = tooltipFor(card);
 
     card.addEventListener("click", function (event) {
       // A mouse click on a card that hover already opened keeps it open.
       // Taps and keyboard presses (detail === 0) toggle it.
-      var mouseClick = event.detail > 0 && lastPointerType === "mouse" && mouseQuery.matches;
+      const mouseClick = event.detail > 0 && lastPointerType === "mouse" && mouseQuery.matches;
       if (openCard === card && !mouseClick) {
         close(false);
       } else {
