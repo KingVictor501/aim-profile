@@ -17,4 +17,21 @@
       localStorage.setItem(key, toggle.checked ? "dark" : "light");
     } catch (e) {}
   });
+
+  // Keyboard shortcut: Alt+T (Option+T on a Mac) flips dark mode.
+  // It needs a modifier key so it can't fire by accident while typing or
+  // using voice control (WCAG 2.1.4). event.code is the physical T key,
+  // because on a Mac Option+T types "†" rather than "t".
+  var isMac = /Mac|iPhone|iPad/.test(navigator.platform);
+  if (isMac) document.querySelector("#theme-shortcut kbd").textContent = "Option";
+
+  document.addEventListener("keydown", function (event) {
+    if (event.code !== "KeyT" || !event.altKey) return;
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.repeat) return;
+
+    event.preventDefault(); // don't type "†" or open a browser menu
+    toggle.checked = !toggle.checked;
+    // Fire "change" so the choice is saved, just like clicking the switch
+    toggle.dispatchEvent(new Event("change"));
+  });
 })();

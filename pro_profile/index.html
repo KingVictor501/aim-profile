@@ -7,10 +7,13 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
   <header>
     <p class="theme-switch">
       <label for="theme-toggle">Dark mode:</label>
-      <input type="checkbox" id="theme-toggle" class="theme-toggle" role="switch">
+      <input type="checkbox" id="theme-toggle" class="theme-toggle" role="switch" aria-keyshortcuts="Alt+T" aria-describedby="theme-shortcut">
+      <small id="theme-shortcut">Shortcut: <kbd>Alt</kbd> + <kbd>T</kbd></small>
       <script src="theme.js"></script>
     </p>
     <h1>Doc Carson, CDMP</h1>
@@ -30,11 +33,12 @@
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <main>
+  <main id="main">
     <section id="about">
       <h2>About</h2>
       <p>An Air Force veteran with 12+ years' experience, including digital marketing leadership, I hold a Master of Science in Digital Audiences Strategy from Arizona State University's Walter Cronkite School of Journalism. I'm a Certified Digital Marketing Professional, Google Analytics and Meta certified, and former Big Tech Digital Marketing Manager and Webmaster. Now I freelance, building AI and automation for marketing.</p>
@@ -51,21 +55,21 @@
           </aside>
         </li>
         <li>
-          <button type="button" class="skill-card" id="skill-card-2" aria-expanded="false" aria-controls="skill-tip-2">Paid Search (Google &amp; Bing Ads)</button>
+          <button type="button" class="skill-card" id="skill-card-2" aria-expanded="false" aria-controls="skill-tip-2">Paid Search</button>
           <aside class="skill-tooltip" id="skill-tip-2" aria-labelledby="skill-card-2" hidden>
             <p>Plan, launch, and optimize Google and Bing campaigns that turn search intent into qualified leads.</p>
             <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
           </aside>
         </li>
         <li>
-          <button type="button" class="skill-card" id="skill-card-3" aria-expanded="false" aria-controls="skill-tip-3">Marketing Analytics &amp; Dashboards (GA4, Looker Studio)</button>
+          <button type="button" class="skill-card" id="skill-card-3" aria-expanded="false" aria-controls="skill-tip-3">Marketing Analytics &amp; Dashboards</button>
           <aside class="skill-tooltip" id="skill-tip-3" aria-labelledby="skill-card-3" hidden>
             <p>Set up clean tracking with GA4 and Google Tag Manager, then turn the data into Looker Studio dashboards that leaders can act on.</p>
             <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
           </aside>
         </li>
         <li>
-          <button type="button" class="skill-card" id="skill-card-4" aria-expanded="false" aria-controls="skill-tip-4">CRM &amp; Marketing Automation (HubSpot, Salesforce)</button>
+          <button type="button" class="skill-card" id="skill-card-4" aria-expanded="false" aria-controls="skill-tip-4">CRM &amp; Marketing Automation</button>
           <aside class="skill-tooltip" id="skill-tip-4" aria-labelledby="skill-card-4" hidden>
             <p>Connect HubSpot and Salesforce data, build automated email sequences, and A/B test them to put the right message in front of the right people.</p>
             <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
@@ -79,7 +83,7 @@
           </aside>
         </li>
         <li>
-          <button type="button" class="skill-card" id="skill-card-6" aria-expanded="false" aria-controls="skill-tip-6">Web Development (WordPress, Webflow, HTML/CSS)</button>
+          <button type="button" class="skill-card" id="skill-card-6" aria-expanded="false" aria-controls="skill-tip-6">Web Development</button>
           <aside class="skill-tooltip" id="skill-tip-6" aria-labelledby="skill-card-6" hidden>
             <p>Build SEO-ready websites and reusable landing page templates that scale as a business grows.</p>
             <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
@@ -88,19 +92,40 @@
       </ul>
     </section>
 
+    <section id="projects">
+      <h2>Projects</h2>
+      <form class="project-form" id="project-form">
+        <p>
+          <label for="project-name">Project name (required)</label>
+          <input type="text" id="project-name" name="name" maxlength="80" autocomplete="off" required>
+        </p>
+        <p>
+          <label for="project-description">Description (required)</label>
+          <textarea id="project-description" name="description" rows="3" maxlength="300" required></textarea>
+        </p>
+        <p>
+          <button type="submit">Add Project</button>
+        </p>
+      </form>
+      <!-- Cards are drawn here by projects.js from its projects array -->
+      <ul class="project-list" id="project-list"></ul>
+      <p id="project-empty" hidden>No projects yet. Add one above.</p>
+      <p class="visually-hidden" id="project-status" role="status"></p>
+    </section>
+
     <section id="contact">
       <h2>Contact</h2>
       <form action="#" method="post">
         <p>
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" autocomplete="name" pattern="[A-Za-z ]+" title="Letters and spaces only" required>
+          <label for="name">Name (required)</label>
+          <input type="text" id="name" name="name" autocomplete="name" pattern="[\p{L}\p{M}' .\-]+" title="Letters, spaces, hyphens, apostrophes and periods only" required>
         </p>
         <p>
-          <label for="email">Email</label>
+          <label for="email">Email (required)</label>
           <input type="email" id="email" name="email" autocomplete="email" required>
         </p>
         <p>
-          <label for="phone">Phone</label>
+          <label for="phone">Phone (required)</label>
           <input type="tel" id="phone" name="phone" autocomplete="tel" required>
         </p>
         <p>
@@ -112,7 +137,7 @@
           </select>
         </p>
         <p>
-          <label for="message">Message</label>
+          <label for="message">Message (required)</label>
           <textarea id="message" name="message" rows="6" placeholder="Tell me about your project, goals, or question..." required></textarea>
         </p>
         <p>
@@ -136,5 +161,6 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="projects.js"></script>
 </body>
 </html>
