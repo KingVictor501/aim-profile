@@ -5,7 +5,7 @@ A simple, responsive personal profile page built with plain HTML and CSS — no 
 ## What's inside
 
 - **About**: a short professional bio
-- **Skills**: a list of core skills
+- **Skills**: six interactive cards. Hover (mouse) or tap (touch) a card to see a tooltip describing that skill (`script.js`)
 - **Contact**: a contact form with built-in HTML validation (name, email, phone, subject, message)
 - **Navigation**: a menu that collapses into a toggle button on small screens, using CSS only (no JavaScript)
 - **Dark mode**: a switch in the top right turns dark mode on and off, and remembers your choice after a refresh (`theme.js`)
@@ -20,7 +20,8 @@ A simple, responsive personal profile page built with plain HTML and CSS — no 
 ├── pro_profile/
 │   ├── index.html   # Page markup
 │   ├── styles.css   # Styles and responsive breakpoints
-│   └── theme.js     # Remembers the dark mode setting
+│   ├── theme.js     # Remembers the dark mode setting
+│   └── script.js    # Skill card tooltips
 ├── LICENSE
 └── README.md
 ```
