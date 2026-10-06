@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Doc Carson, CDMP</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header>
+    <!-- Same nav on every page; aria-current="page" marks (and highlights) this page's link -->
+    <nav aria-label="Main">
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-button">
+        <svg class="menu-icon" viewBox="0 0 24 16" width="24" height="16" aria-hidden="true" focusable="false">
+          <line x1="0" y1="1" x2="24" y2="1"/>
+          <line x1="0" y1="8" x2="24" y2="8"/>
+          <line x1="0" y1="15" x2="24" y2="15"/>
+        </svg>
+        Menu
+      </label>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html" aria-current="page">Projects</a></li>
+      </ul>
+    </nav>
+
+    <p class="theme-switch">
+      <label for="theme-toggle">Dark mode:</label>
+      <input type="checkbox" id="theme-toggle" class="theme-toggle" role="switch" aria-keyshortcuts="Alt+T" aria-describedby="theme-shortcut">
+      <small id="theme-shortcut">Shortcut: <kbd>Alt</kbd> + <kbd>T</kbd></small>
+      <!-- Loaded here, right after the switch, so dark mode applies before the page shows -->
+      <script src="scripts.js"></script>
+    </p>
+  </header>
+
+  <main id="main">
+    <h1>Projects</h1>
+    <section id="projects" aria-label="Projects">
+      <form class="project-form" id="project-form">
+        <p>
+          <label for="project-name">Project name (required)</label>
+          <input type="text" id="project-name" name="name" maxlength="80" autocomplete="off" required>
+        </p>
+        <p>
+          <label for="project-description">Description (required)</label>
+          <textarea id="project-description" name="description" rows="3" maxlength="300" required></textarea>
+        </p>
+        <p>
+          <button type="submit">Add Project</button>
+        </p>
+      </form>
+      <!-- Cards are drawn here by scripts.js from its projects array -->
+      <ul class="project-list" id="project-list"></ul>
+      <p id="project-empty" hidden>No projects yet. Add one above.</p>
+      <p class="visually-hidden" id="project-status" role="status"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Doc Carson. All rights reserved.</p>
+  </footer>
+</body>
+</html>

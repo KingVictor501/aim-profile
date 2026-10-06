@@ -10,110 +10,67 @@
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <header>
+    <!-- Same nav on every page; aria-current="page" marks (and highlights) this page's link -->
+    <nav aria-label="Main">
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-button">
+        <svg class="menu-icon" viewBox="0 0 24 16" width="24" height="16" aria-hidden="true" focusable="false">
+          <line x1="0" y1="1" x2="24" y2="1"/>
+          <line x1="0" y1="8" x2="24" y2="8"/>
+          <line x1="0" y1="15" x2="24" y2="15"/>
+        </svg>
+        Menu
+      </label>
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+      </ul>
+    </nav>
+
     <p class="theme-switch">
       <label for="theme-toggle">Dark mode:</label>
       <input type="checkbox" id="theme-toggle" class="theme-toggle" role="switch" aria-keyshortcuts="Alt+T" aria-describedby="theme-shortcut">
       <small id="theme-shortcut">Shortcut: <kbd>Alt</kbd> + <kbd>T</kbd></small>
-      <script src="theme.js"></script>
+      <!-- Loaded here, right after the switch, so dark mode applies before the page shows -->
+      <script src="scripts.js"></script>
     </p>
-    <h1>Doc Carson, CDMP</h1>
-    <p>Turning marketing data into AI-powered automation that actually drives growth.</p>
   </header>
 
-  <nav>
-    <input type="checkbox" id="menu-toggle" class="menu-toggle">
-    <label for="menu-toggle" class="menu-button">
-      <svg class="menu-icon" viewBox="0 0 24 16" width="24" height="16" aria-hidden="true" focusable="false">
-        <line x1="0" y1="1" x2="24" y2="1"/>
-        <line x1="0" y1="8" x2="24" y2="8"/>
-        <line x1="0" y1="15" x2="24" y2="15"/>
-      </svg>
-      Menu
-    </label>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
   <main id="main">
-    <section id="about">
-      <h2>About</h2>
-      <p>An Air Force veteran with 12+ years' experience, including digital marketing leadership, I hold a Master of Science in Digital Audiences Strategy from Arizona State University's Walter Cronkite School of Journalism. I'm a Certified Digital Marketing Professional, Google Analytics and Meta certified, and former Big Tech Digital Marketing Manager and Webmaster. Now I freelance, building AI and automation for marketing.</p>
-    </section>
-
-    <section id="skills">
-      <h2>Skills</h2>
-      <form class="skill-form" id="skill-form">
-        <p>
-          <label for="skill-name">Skill name (required)</label>
-          <input type="text" id="skill-name" name="name" maxlength="60" autocomplete="off" required>
-        </p>
-        <p>
-          <label for="skill-level">Level</label>
-          <select id="skill-level" name="level">
-            <option value="learning">Learning</option>
-            <option value="practicing">Practicing</option>
-            <option value="confident">Confident</option>
-          </select>
-        </p>
-        <p>
-          <button type="submit">Add</button>
-        </p>
-      </form>
-      <!-- Filter buttons: show all skills, or only one level -->
-      <p class="skill-filters" id="skill-filters" role="group" aria-label="Filter skills by level">
-        <button type="button" data-filter="all" aria-pressed="true">All</button>
-        <button type="button" data-filter="learning" aria-pressed="false">Learning</button>
-        <button type="button" data-filter="practicing" aria-pressed="false">Practicing</button>
-        <button type="button" data-filter="confident" aria-pressed="false">Confident</button>
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title">Doc Carson, CDMP</h1>
+      <p class="tagline">Turning marketing data into AI-powered automation that actually drives growth.</p>
+      <p>Air Force veteran and former Big Tech Digital Marketing Manager, now freelancing to build AI and automation for marketing.</p>
+      <p class="hero-links">
+        <a class="button-link" href="about.html">About me</a>
+        <a class="button-link button-link--secondary" href="projects.html">See my projects</a>
       </p>
-      <!-- Cards are drawn here by script.js from its skills array -->
-      <ul class="skill-list" id="skill-list"></ul>
-      <p id="skill-empty" hidden>No skills yet. Add one above.</p>
-      <p class="skill-count" id="skill-count"></p>
-      <p class="visually-hidden" id="skill-status" role="status"></p>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <form class="project-form" id="project-form">
-        <p>
-          <label for="project-name">Project name (required)</label>
-          <input type="text" id="project-name" name="name" maxlength="80" autocomplete="off" required>
-        </p>
-        <p>
-          <label for="project-description">Description (required)</label>
-          <textarea id="project-description" name="description" rows="3" maxlength="300" required></textarea>
-        </p>
-        <p>
-          <button type="submit">Add Project</button>
-        </p>
-      </form>
-      <!-- Cards are drawn here by projects.js from its projects array -->
-      <ul class="project-list" id="project-list"></ul>
-      <p id="project-empty" hidden>No projects yet. Add one above.</p>
-      <p class="visually-hidden" id="project-status" role="status"></p>
     </section>
 
     <section id="contact">
       <h2>Contact</h2>
-      <form action="#" method="post">
-        <p>
+      <!-- novalidate: scripts.js checks each field as you go and shows its own
+           messages; the required/type/pattern attributes stay as the rules it reads -->
+      <form class="contact-form" id="contact-form" action="#" method="post" novalidate>
+        <p class="field">
           <label for="name">Name (required)</label>
-          <input type="text" id="name" name="name" autocomplete="name" pattern="[\p{L}\p{M}' .\-]+" title="Letters, spaces, hyphens, apostrophes and periods only" required>
+          <input type="text" id="name" name="name" autocomplete="name" minlength="2" maxlength="80" pattern="[\p{L}\p{M}' .\-]+" required aria-describedby="name-error">
+          <small class="field-error" id="name-error"></small>
         </p>
-        <p>
+        <p class="field">
           <label for="email">Email (required)</label>
-          <input type="email" id="email" name="email" autocomplete="email" required>
+          <input type="email" id="email" name="email" autocomplete="email" maxlength="120" required aria-describedby="email-hint email-error">
+          <small class="field-hint" id="email-hint">Must end in .com, .gov, .edu, .org or .mil</small>
+          <small class="field-error" id="email-error"></small>
         </p>
-        <p>
+        <p class="field">
           <label for="phone">Phone (required)</label>
-          <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="16" pattern="(\(\d{3}\)|\d{3})[\-\s]?\d{3}[\-\s]?\d{4}" required aria-describedby="phone-hint phone-error">
+          <small class="field-hint" id="phone-hint">10 digits, for example 5551234567, 555-123-4567 or (555) 123-4567</small>
+          <small class="field-error" id="phone-error"></small>
         </p>
-        <p>
+        <p class="field">
           <label for="subject">Subject</label>
           <select id="subject" name="subject">
             <option value="general">General</option>
@@ -121,9 +78,10 @@
             <option value="other">Other</option>
           </select>
         </p>
-        <p>
+        <p class="field">
           <label for="message">Message (required)</label>
-          <textarea id="message" name="message" rows="6" placeholder="Tell me about your project, goals, or question..." required></textarea>
+          <textarea id="message" name="message" rows="6" placeholder="Tell me about your project, goals, or question..." required aria-describedby="message-error"></textarea>
+          <small class="field-error" id="message-error"></small>
         </p>
         <p>
           <input type="checkbox" id="subscribe" name="subscribe" value="yes">
@@ -137,6 +95,7 @@
           <button type="submit">Send message</button>
           <button type="reset">Reset</button>
         </p>
+        <p class="form-status" id="contact-status" role="status"></p>
       </form>
     </section>
   </main>
@@ -144,8 +103,5 @@
   <footer>
     <p>&copy; 2026 Doc Carson. All rights reserved.</p>
   </footer>
-
-  <script src="script.js"></script>
-  <script src="projects.js"></script>
 </body>
 </html>

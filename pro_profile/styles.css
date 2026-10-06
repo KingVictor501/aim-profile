@@ -21,6 +21,10 @@
   --color-action-strong-hover: #9a3412;
   --color-on-action: #ffffff;     /* text on orange */
 
+  /* Form feedback */
+  --color-error: #b91c1c;         /* red: 6.0:1 on the page background */
+  --color-success: #15803d;       /* green: 4.8:1 on the page background */
+
   /* Spacing scale: every margin, padding and gap uses one of these */
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
@@ -43,6 +47,8 @@
   --color-border: #475569;        /* mid slate decorative dividers */
   --color-muted: #94a3b8;         /* field borders and placeholders: 5.7:1 on
                                      the dark surface */
+  --color-error: #fca5a5;         /* light red: 9.6:1 on the dark background */
+  --color-success: #86efac;       /* light green: 12:1 on the dark background */
 }
 
 /* ==========================================================================
@@ -125,7 +131,8 @@ p {
 /* ==========================================================================
    Dark mode switch (top right)
    The checkbox holds on/off, and :has() on :root swaps the palette above.
-   theme.js only saves the choice so it survives a refresh.
+   scripts.js only saves the choice so it survives a refresh and carries
+   over to the other pages.
    ========================================================================== */
 .theme-switch {
   display: flex;
@@ -133,8 +140,7 @@ p {
   align-items: center;
   gap: var(--space-sm);
   flex-wrap: wrap;                /* never wider than a 320px screen */
-  margin: 0 0 var(--space-lg);
-  font-size: inherit;             /* undo the larger "header p" size */
+  margin: 0;
 }
 
 /* "Shortcut: Alt + T" hint next to the switch */
@@ -241,30 +247,83 @@ kbd {
   .menu-icon line {
     stroke: CanvasText;
   }
+
+  /* Background colors are dropped here, so outline the current page link */
+  nav a[aria-current="page"] {
+    outline: 2px solid CanvasText;
+  }
 }
 
 /* ==========================================================================
-   Header
+   Header (nav bar + dark mode switch, the same on every page)
+   and page titles
    ========================================================================== */
 header {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-2xl);
 }
 
-header h1 {
-  margin: 0 0 var(--space-xs);
+/* Each page has one <h1>: the name on the homepage, the page name elsewhere */
+h1 {
+  margin: 0 0 var(--space-lg);
   font-size: clamp(2rem, 1.5rem + 2.5vw, 3rem);
 }
 
-header p {
-  margin: 0;
+.hero h1 {
+  margin-bottom: var(--space-xs);
+}
+
+/* Homepage tagline under the name */
+.tagline {
+  margin: 0 0 var(--space-lg);
   font-size: clamp(1.0625rem, 1rem + 0.5vw, 1.3rem);
+}
+
+/* Homepage links to the other pages, styled as buttons */
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin: var(--space-lg) 0 0;
+}
+
+.button-link {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  border: 1px solid var(--color-action-strong);
+  border-radius: 0.375rem;
+  background-color: var(--color-action-strong);
+  color: var(--color-on-action);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.button-link:hover {
+  border-color: var(--color-action-strong-hover);
+  background-color: var(--color-action-strong-hover);
+}
+
+/* Secondary: outlined, like the Reset button */
+.button-link--secondary {
+  border-color: var(--color-text);
+  background-color: transparent;
+  color: var(--color-text);
+}
+
+.button-link--secondary:hover {
+  border-color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+.button-link:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
 }
 
 /* ==========================================================================
    Navigation (flexbox)
    ========================================================================== */
 nav {
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-md);
   padding: var(--space-md) 0;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
@@ -344,9 +403,19 @@ nav ul {
 }
 
 nav a {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 999px;
   color: var(--color-text);
   font-weight: 600;
   text-decoration: none;
+}
+
+/* The current page's link: filled in with inverted colors (each page sets
+   aria-current="page" on its own link, which also tells screen readers) */
+nav a[aria-current="page"] {
+  background-color: var(--color-text);
+  color: var(--color-bg);
 }
 
 nav a:hover {
@@ -367,7 +436,7 @@ main section {
 
 /* ==========================================================================
    Skills (grid of interactive cards with tooltips)
-   script.js draws the cards from its skills array. Each card is a
+   scripts.js draws the cards from its skills array. Each card is a
    <button>; its tooltip is the <aside> right after it.
    ========================================================================== */
 /* Add-a-skill form: stacked on phones, one row from 768px up.
@@ -560,7 +629,7 @@ main section {
 }
 
 /* The tooltip: opens above its card, colors inverted from the page.
-   --shift is set by script.js to nudge it back on screen near an edge. */
+   --shift is set by scripts.js to nudge it back on screen near an edge. */
 .skill-tooltip {
   --shift: 0px;
   position: absolute;
@@ -592,7 +661,7 @@ main section {
   border-top-color: var(--color-text);
 }
 
-/* Not enough room above the card: script.js flips it below */
+/* Not enough room above the card: scripts.js flips it below */
 .skill-tooltip.is-below {
   top: calc(100% + var(--space-sm));
   bottom: auto;
@@ -661,7 +730,7 @@ main section {
 }
 
 /* ==========================================================================
-   Projects (cards drawn by projects.js)
+   Projects (cards drawn by scripts.js)
    The form reuses the contact form's field and button styles below.
    ========================================================================== */
 .project-form {
@@ -782,6 +851,59 @@ textarea:focus {
   outline: 3px solid var(--color-text);
   outline-offset: 2px;
   border-color: var(--color-text);
+}
+
+/* Contact form feedback (scripts.js fills these in as you type) */
+.field-hint,
+.field-error {
+  display: block;
+  margin-top: var(--space-xs);
+  font-size: 0.875rem;
+}
+
+.field-hint {
+  color: var(--color-muted);
+}
+
+.field-error {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.field-error:empty {
+  display: none;
+}
+
+/* An ✕ before each message, so color isn't the only signal.
+   The "/ ''" part keeps screen readers from reading it out. */
+.field-error::before {
+  content: "✕ ";
+  content: "✕ " / "";
+}
+
+.field.is-invalid input,
+.field.is-invalid textarea {
+  border-color: var(--color-error);
+  box-shadow: inset 4px 0 0 var(--color-error);
+}
+
+.field.is-valid input,
+.field.is-valid textarea {
+  border-color: var(--color-success);
+}
+
+/* "Please fix 2 fields above." / "Thanks, …!" under the buttons */
+.form-status {
+  margin: 0;
+  font-weight: 600;
+}
+
+.form-status.is-error {
+  color: var(--color-error);
+}
+
+.form-status.is-success {
+  color: var(--color-success);
 }
 
 /* Checkbox sits on the same line as its label */

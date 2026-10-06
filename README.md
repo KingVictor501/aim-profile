@@ -1,15 +1,25 @@
-# Doc Carson — Personal Profile Page
+# Doc Carson — Personal Profile Site
 
-A simple, responsive personal profile page built with plain HTML and CSS — no frameworks, no build step.
+A simple, responsive three-page personal site built with plain HTML, CSS and JavaScript — no frameworks, no build step.
+
+## Pages
+
+| Page | File | Contents |
+|---|---|---|
+| Home | `index.html` | Name, tagline, short intro, links to the other pages, and the contact form |
+| About | `about.html` | Professional bio and the Skills section |
+| Projects | `projects.html` | The Projects section |
+
+Every page shares the same nav bar, dark mode switch, footer, stylesheet (`styles.css`) and script (`scripts.js`).
 
 ## What's inside
 
-- **About**: a short professional bio
-- **Skills**: interactive cards drawn from a JavaScript array, each showing a level (learning, practicing or confident). Add a skill with the form above the list, or remove one with its × button. Filter buttons (All, Learning, Practicing, Confident) show only one level, with a count below the list ("Showing 3 of 7 skills"). Hover (mouse) or tap (touch) a card to see a tooltip describing that skill (`script.js`). Changes are saved in your browser (localStorage), so they're still there after a reload
-- **Projects**: project cards drawn from a JavaScript array. Add a project with the form, or delete one with its × button (`projects.js`). Changes last until the page is reloaded
-- **Contact**: a contact form with built-in HTML validation (name, email, phone, subject, message)
-- **Navigation**: a menu that collapses into a toggle button on small screens, using CSS only (no JavaScript)
-- **Dark mode**: a switch in the top right turns dark mode on and off, and remembers your choice after a refresh. Press **Alt+T** (**Option+T** on a Mac) to toggle it from the keyboard (`theme.js`)
+- **About** (`about.html`): a short professional bio
+- **Skills** (`about.html`): interactive cards drawn from a JavaScript array, each showing a level (learning, practicing or confident). Add a skill with the form above the list, or remove one with its × button. Filter buttons (All, Learning, Practicing, Confident) show only one level, with a count below the list ("Showing 3 of 7 skills"). Hover (mouse) or tap (touch) a card to see a tooltip describing that skill. Changes are saved in your browser (localStorage), so they're still there after a reload
+- **Projects** (`projects.html`): project cards drawn from a JavaScript array. Add a project with the form, or delete one with its × button. Changes last until you reload or leave the page
+- **Contact** (`index.html`): a contact form that checks each field as you fill it in and shows a clear message under any field with a problem: name, email (must end in .com, .gov, .edu, .org or .mil) and phone (10 digits, with or without hyphens or parentheses), plus a required message
+- **Navigation**: a nav bar at the top of every page linking Home, About and Projects. The current page's link is highlighted (marked with `aria-current="page"`). On small screens it collapses into a menu button, using CSS only (no JavaScript)
+- **Dark mode**: a switch in the top right turns dark mode on and off, and remembers your choice after a refresh and across pages. Press **Alt+T** (**Option+T** on a Mac) to toggle it from the keyboard
 - **Accessibility**: a skip link, visible keyboard focus, full keyboard support, WCAG AA color contrast in both themes, and support for reduced motion and Windows High Contrast mode
 - **Responsive layout**: mobile-first styles that adapt at 768px (tablet) and 1024px (desktop)
 
@@ -20,12 +30,13 @@ A simple, responsive personal profile page built with plain HTML and CSS — no 
 ```
 .
 ├── pro_profile/
-│   ├── index.html   # Page markup
-│   ├── styles.css   # Styles and responsive breakpoints
-│   ├── theme.js     # Remembers the dark mode setting
-│   ├── script.js    # Skills list: cards, tooltips, and add form
-│   └── projects.js  # Projects list: add and delete cards
+│   ├── index.html     # Home page: intro and contact form
+│   ├── about.html     # About page: bio and skills
+│   ├── projects.html  # Projects page
+│   ├── styles.css     # Shared styles for every page
+│   └── scripts.js     # Shared JavaScript: dark mode, skills, projects
 ├── LICENSE
+├── PROMPT_TRACE.md
 └── README.md
 ```
 
