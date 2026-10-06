@@ -367,13 +367,83 @@ main section {
 
 /* ==========================================================================
    Skills (grid of interactive cards with tooltips)
-   Each card is a <button>; its tooltip is the <aside> right after it.
-   script.js opens and closes the tooltips.
+   script.js draws the cards from its skills array. Each card is a
+   <button>; its tooltip is the <aside> right after it.
    ========================================================================== */
-#skills ul {
+/* Add-a-skill form: stacked on phones, one row from 768px up.
+   Fields and the button reuse the contact form styles below. */
+.skill-form {
   display: grid;
-  /* Mobile first: one column on phones */
-  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.skill-form p {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Add button sits on the same baseline as the fields */
+  margin: 0;
+}
+
+/* The dropdown is a little shorter than the text box; stretch it so both
+   labels line up on the one-row layout */
+.skill-form select {
+  flex: 1;
+}
+
+.skill-form button {
+  margin: 0;
+}
+
+/* Filter buttons: a row of toggle buttons; the active one is filled in */
+.skill-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: 0 0 var(--space-lg);
+}
+
+.skill-filters button {
+  margin: 0;
+  padding: var(--space-xs) var(--space-md);
+  border-color: var(--color-muted);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--color-text);
+}
+
+.skill-filters button:hover {
+  border-color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+/* Active filter: inverted colors, so it stands out in light and dark mode */
+.skill-filters button[aria-pressed="true"] {
+  border-color: var(--color-text);
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* "Showing 3 of 7 skills" under the list */
+.skill-count {
+  margin: var(--space-md) 0 0;
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+}
+
+/* Forced-color modes drop background colors; outline the active filter */
+@media (forced-colors: active) {
+  .skill-filters button[aria-pressed="true"] {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+}
+
+.skill-list {
+  display: grid;
+  /* Mobile first: one column on phones. minmax(0, …) stops a long typed
+     word from stretching the column past the screen; it wraps instead. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-md);
   margin: 0;
   padding: 0;
@@ -389,7 +459,9 @@ main section {
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: var(--space-md) var(--space-lg);
+  /* Slimmer right padding so "Entrepreneurship" fits on one line in the
+     three-column layout instead of being wrapped */
+  padding: var(--space-md) var(--space-md) var(--space-md) var(--space-lg);
   border: 1px solid var(--color-border);
   border-left: 4px solid var(--color-text);
   border-radius: 0.375rem;
@@ -401,7 +473,44 @@ main section {
   font-weight: 700;
   line-height: 1.3;
   text-align: left;
+  /* Words too long for the card are hyphenated ("Entrepreneur-ship");
+     a typed name with no break point still wraps instead of overflowing */
+  hyphens: auto;
+  overflow-wrap: break-word;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Level line under the skill name. A three-dot meter shows the level at a
+   glance; the "/ ''" part hides the dots from screen readers, which read
+   the word instead. currentColor keeps it readable on the orange state
+   and in dark mode. */
+.skill-level {
+  display: block;
+  margin-top: var(--space-xs);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.skill-level::before {
+  margin-right: var(--space-xs);
+  letter-spacing: 0.15em;
+}
+
+.skill-level[data-level="learning"]::before {
+  content: "●○○";
+  content: "●○○" / "";
+}
+
+.skill-level[data-level="practicing"]::before {
+  content: "●●○";
+  content: "●●○" / "";
+}
+
+.skill-level[data-level="confident"]::before {
+  content: "●●●";
+  content: "●●●" / "";
 }
 
 /* Orange while the card's tooltip is open (all devices) */
@@ -419,6 +528,35 @@ main section {
     background-color: var(--color-action);
     color: var(--color-on-action);
   }
+}
+
+/* Remove (×) button: a small round badge on the card's top-right corner.
+   It sits half outside the card, in the gap between cards, so it takes no
+   room from the skill name. 28px is above the 24px minimum target size. */
+.skill-remove {
+  position: absolute;
+  top: -0.625rem;
+  right: -0.625rem;
+  z-index: 1; /* above the card, below an open tooltip */
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-muted);
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.skill-remove:hover {
+  border-color: var(--color-action-strong);
+  background-color: var(--color-action-strong);
+  color: var(--color-on-action);
 }
 
 /* The tooltip: opens above its card, colors inverted from the page.
@@ -744,9 +882,14 @@ footer p {
   }
 
   /* Skills and projects in two columns */
-  #skills ul,
+  .skill-list,
   .project-list {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Add-a-skill form on one row: name, level, Add */
+  .skill-form {
+    grid-template-columns: 1fr minmax(9rem, 12rem) auto;
   }
 }
 
@@ -771,8 +914,8 @@ footer p {
   }
 
   /* Skills in three columns, with wider gaps between cards */
-  #skills ul {
-    grid-template-columns: repeat(3, 1fr);
+  .skill-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-lg);
   }
 }

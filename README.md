@@ -5,7 +5,7 @@ A simple, responsive personal profile page built with plain HTML and CSS — no 
 ## What's inside
 
 - **About**: a short professional bio
-- **Skills**: six interactive cards. Hover (mouse) or tap (touch) a card to see a tooltip describing that skill (`script.js`)
+- **Skills**: interactive cards drawn from a JavaScript array, each showing a level (learning, practicing or confident). Add a skill with the form above the list, or remove one with its × button. Filter buttons (All, Learning, Practicing, Confident) show only one level, with a count below the list ("Showing 3 of 7 skills"). Hover (mouse) or tap (touch) a card to see a tooltip describing that skill (`script.js`). Changes are saved in your browser (localStorage), so they're still there after a reload
 - **Projects**: project cards drawn from a JavaScript array. Add a project with the form, or delete one with its × button (`projects.js`). Changes last until the page is reloaded
 - **Contact**: a contact form with built-in HTML validation (name, email, phone, subject, message)
 - **Navigation**: a menu that collapses into a toggle button on small screens, using CSS only (no JavaScript)
@@ -23,7 +23,7 @@ A simple, responsive personal profile page built with plain HTML and CSS — no 
 │   ├── index.html   # Page markup
 │   ├── styles.css   # Styles and responsive breakpoints
 │   ├── theme.js     # Remembers the dark mode setting
-│   ├── script.js    # Skill card tooltips
+│   ├── script.js    # Skills list: cards, tooltips, and add form
 │   └── projects.js  # Projects list: add and delete cards
 ├── LICENSE
 └── README.md

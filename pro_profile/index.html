@@ -46,50 +46,35 @@
 
     <section id="skills">
       <h2>Skills</h2>
-      <ul>
-        <li>
-          <button type="button" class="skill-card" id="skill-card-1" aria-expanded="false" aria-controls="skill-tip-1">Technical &amp; On-Page SEO</button>
-          <aside class="skill-tooltip" id="skill-tip-1" aria-labelledby="skill-card-1" hidden>
-            <p>Uncover keyword gaps and quick wins, fix technical issues, and build internal linking structures that grow organic traffic.</p>
-            <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
-          </aside>
-        </li>
-        <li>
-          <button type="button" class="skill-card" id="skill-card-2" aria-expanded="false" aria-controls="skill-tip-2">Paid Search</button>
-          <aside class="skill-tooltip" id="skill-tip-2" aria-labelledby="skill-card-2" hidden>
-            <p>Plan, launch, and optimize Google and Bing campaigns that turn search intent into qualified leads.</p>
-            <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
-          </aside>
-        </li>
-        <li>
-          <button type="button" class="skill-card" id="skill-card-3" aria-expanded="false" aria-controls="skill-tip-3">Marketing Analytics &amp; Dashboards</button>
-          <aside class="skill-tooltip" id="skill-tip-3" aria-labelledby="skill-card-3" hidden>
-            <p>Set up clean tracking with GA4 and Google Tag Manager, then turn the data into Looker Studio dashboards that leaders can act on.</p>
-            <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
-          </aside>
-        </li>
-        <li>
-          <button type="button" class="skill-card" id="skill-card-4" aria-expanded="false" aria-controls="skill-tip-4">CRM &amp; Marketing Automation</button>
-          <aside class="skill-tooltip" id="skill-tip-4" aria-labelledby="skill-card-4" hidden>
-            <p>Connect HubSpot and Salesforce data, build automated email sequences, and A/B test them to put the right message in front of the right people.</p>
-            <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
-          </aside>
-        </li>
-        <li>
-          <button type="button" class="skill-card" id="skill-card-5" aria-expanded="false" aria-controls="skill-tip-5">AI Entrepreneurship</button>
-          <aside class="skill-tooltip" id="skill-tip-5" aria-labelledby="skill-card-5" hidden>
-            <p>Bring AI and automation into everyday marketing workflows so small businesses can do more with less.</p>
-            <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
-          </aside>
-        </li>
-        <li>
-          <button type="button" class="skill-card" id="skill-card-6" aria-expanded="false" aria-controls="skill-tip-6">Web Development</button>
-          <aside class="skill-tooltip" id="skill-tip-6" aria-labelledby="skill-card-6" hidden>
-            <p>Build SEO-ready websites and reusable landing page templates that scale as a business grows.</p>
-            <button type="button" class="tooltip-close" aria-label="Close">&times;</button>
-          </aside>
-        </li>
-      </ul>
+      <form class="skill-form" id="skill-form">
+        <p>
+          <label for="skill-name">Skill name (required)</label>
+          <input type="text" id="skill-name" name="name" maxlength="60" autocomplete="off" required>
+        </p>
+        <p>
+          <label for="skill-level">Level</label>
+          <select id="skill-level" name="level">
+            <option value="learning">Learning</option>
+            <option value="practicing">Practicing</option>
+            <option value="confident">Confident</option>
+          </select>
+        </p>
+        <p>
+          <button type="submit">Add</button>
+        </p>
+      </form>
+      <!-- Filter buttons: show all skills, or only one level -->
+      <p class="skill-filters" id="skill-filters" role="group" aria-label="Filter skills by level">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="learning" aria-pressed="false">Learning</button>
+        <button type="button" data-filter="practicing" aria-pressed="false">Practicing</button>
+        <button type="button" data-filter="confident" aria-pressed="false">Confident</button>
+      </p>
+      <!-- Cards are drawn here by script.js from its skills array -->
+      <ul class="skill-list" id="skill-list"></ul>
+      <p id="skill-empty" hidden>No skills yet. Add one above.</p>
+      <p class="skill-count" id="skill-count"></p>
+      <p class="visually-hidden" id="skill-status" role="status"></p>
     </section>
 
     <section id="projects">
