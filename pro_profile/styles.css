@@ -859,6 +859,7 @@ textarea:focus {
   display: block;
   margin-top: var(--space-xs);
   font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .field-hint {
@@ -866,17 +867,15 @@ textarea:focus {
 }
 
 .field-error {
+  min-height: 1.4em; /* one line kept even when empty, so a message appearing
+                        doesn't push the Send button away mid-click */
   color: var(--color-error);
   font-weight: 600;
 }
 
-.field-error:empty {
-  display: none;
-}
-
 /* An ✕ before each message, so color isn't the only signal.
    The "/ ''" part keeps screen readers from reading it out. */
-.field-error::before {
+.field-error:not(:empty)::before {
   content: "✕ ";
   content: "✕ " / "";
 }
